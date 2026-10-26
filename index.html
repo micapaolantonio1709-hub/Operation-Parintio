@@ -1,1 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATION PARINTIO - BIRTHDAY MISSION - CLASSIFIED</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tactical: {
+                            bg: '#0B0F12',
+                            card: '#131A20',
+                            border: '#212D38',
+                            accent: '#FACC15',
+                            green: '#22C55E'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['"Chakra Petch"', 'monospace'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0F12;
+            color: #E2E8F0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-tactical {
+            font-family: 'Chakra Petch', monospace;
+        }
+
+        /* Tactical Background Grid Pattern */
+        .bg-tactical-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Card selection state */
+        .option-card {
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+        }
+        .option-card.selected {
+            border-color: #22C55E !important;
+            background-color: rgba(34, 197, 94, 0.1) !important;
+        }
+        .option-card.selected .radio-dot {
+            opacity: 1 !important;
+        }
+
+        /* Pulse effects */
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
+        .pulse-card {
+            animation: subtlePulse 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-tactical-bg bg-tactical-grid flex items-center justify-center p-3 sm:p-6">
+
+    <!-- Container Frame -->
+    <div class="w-full max-w-md bg-tactical-card border border-tactical-border rounded-2xl shadow-2xl overflow-hidden flex flex-col min-h-[640px] relative">
+        
+        <!-- HEADER BAR -->
+        <header class="bg-[#0f151b] border-b border-tactical-border px-5 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-3 h-3 rounded-full bg-tactical-accent animate-pulse"></div>
+                <div>
+                    <h1 class="font-tactical font-bold text-xs tracking-wider text-slate-200 uppercase flex items-center gap-1.5">
+                        <i class="fa-solid fa-crosshairs text-tactical-accent"></i>
+                        OPERATION PARINTIO
+                    </h1>
+                    <p class="text-[10px] text-slate-400 font-mono tracking-tight">
+                        BIRTHDAY MISSION • CLASSIFIED
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-slate-500">05.11.26</span>
+                <i id="lock-icon" class="fa-solid fa-lock text-slate-500 text-xs"></i>
+            </div>
+        </header>
+
+        <!-- APP BODY (Step Screens) -->
+        <main class="p-5 flex-1 flex flex-col justify-between overflow-y-auto">
+
+            <!-- STEP 0: INTRO SCREEN -->
+            <div id="step-0" class="step-screen flex-1 flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="inline-flex items-center gap-2 bg-tactical-border/60 border border-slate-700/50 px-3 py-1 rounded-full">
+                        <i class="fa-solid fa-circle-check text-tactical-green text-xs"></i>
+                        <span class="text-[11px] font-tactical tracking-wider text-slate-300 uppercase">
+                            OPERADOR IDENTIFICADO
+                        </span>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h2 class="text-2xl font-tactical font-bold text-white tracking-wide uppercase">
+                            WELCOME, PARINTIO
+                        </h2>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Tu compañera de dúo preparó un suministro especial para tu cumpleaños.
+                        </p>
+                        <p class="text-xs text-slate-400 font-mono">
+                            Completá tres misiones para desbloquearlo.
+                        </p>
+                    </div>
+
+                    <!-- Visual Target Radar Graphic -->
+                    <div class="my-6 flex justify-center py-6">
+                        <div class="relative w-36 h-36 border border-emerald-500/20 rounded-full flex items-center justify-center">
+                            <div class="absolute inset-2 border border-emerald-500/30 rounded-full"></div>
+                            <div class="absolute inset-8 border border-emerald-500/40 rounded-full"></div>
+                            <div class="w-3 h-3 bg-tactical-green rounded-full animate-ping"></div>
+                            <div class="w-2.5 h-2.5 bg-tactical-green rounded-full"></div>
+                            <div class="absolute top-1/2 left-0 right-0 h-[1px] bg-emerald-500/20"></div>
+                            <div class="absolute top-0 bottom-0 left-1/2 w-[1px] bg-emerald-500/20"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="goToStep(1)" class="w-full bg-tactical-accent hover:bg-yellow-400 active:scale-[0.98] text-black font-tactical font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                    ACEPTAR MISIÓN
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+
+            <!-- STEP 1: MISIÓN 1/3 -->
+            <div id="step-1" class="step-screen flex-1 flex flex-col justify-between hidden">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-tactical text-tactical-accent tracking-wider uppercase bg-yellow-500/10 px-2.5 py-1 rounded-md border border-yellow-500/20">
+                            MISIÓN 1 / 3
+                        </span>
+                        <div class="flex gap-1.5">
+                            <div class="w-2 h-2 rounded-full bg-tactical-accent animate-pulse"></div>
+                            <div class="w-2 h-2 rounded-full bg-slate-700"></div>
+                            <div class="w-2 h-2 rounded-full bg-slate-700"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-center my-3">
+                        <div class="w-12 h-12 bg-tactical-border/50 border border-slate-700 rounded-2xl flex items-center justify-center mx-auto mb-2 text-tactical-accent">
+                            <i class="fa-solid fa-shield-halved text-xl"></i>
+                        </div>
+                        <h2 class="text-lg font-tactical font-bold text-white uppercase tracking-wide">
+                            IDENTIFICACIÓN DE OPERADOR
+                        </h2>
+                        <p class="text-xs text-slate-300 mt-2 px-2">
+                            ¿Cuál es el nombre en clave de tu compañera de dúo?
+                        </p>
+                    </div>
+
+                    <div class="space-y-2.5 mt-5">
+                        <div onclick="selectOption(1, 'Miqui Pro', false)" id="m1-opt-0" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Miqui Pro</span>
+                        </div>
+                        <div onclick="selectOption(1, 'Miqui Bu', true)" id="m1-opt-1" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Miqui Bu</span>
+                        </div>
+                        <div onclick="selectOption(1, 'Agente Banana', false)" id="m1-opt-2" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Agente Banana</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <div id="m1-status" class="hidden text-center py-2 px-3 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-tactical text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check text-tactical-green"></i>
+                        <span>IDENTIDAD CONFIRMADA - MIQUI BU</span>
+                    </div>
+
+                    <button type="button" id="m1-btn" onclick="confirmMission(1)" disabled class="w-full bg-tactical-border text-slate-500 font-tactical font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                        CONFIRMAR RESPUESTA
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: MISIÓN 2/3 -->
+            <div id="step-2" class="step-screen flex-1 flex flex-col justify-between hidden">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-tactical text-tactical-accent tracking-wider uppercase bg-yellow-500/10 px-2.5 py-1 rounded-md border border-yellow-500/20">
+                            MISIÓN 2 / 3
+                        </span>
+                        <div class="flex gap-1.5">
+                            <div class="w-2 h-2 rounded-full bg-tactical-green"></div>
+                            <div class="w-2 h-2 rounded-full bg-tactical-accent animate-pulse"></div>
+                            <div class="w-2 h-2 rounded-full bg-slate-700"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-center my-3">
+                        <div class="w-12 h-12 bg-tactical-border/50 border border-slate-700 rounded-2xl flex items-center justify-center mx-auto mb-2 text-tactical-accent">
+                            <i class="fa-solid fa-calendar-days text-xl"></i>
+                        </div>
+                        <h2 class="text-lg font-tactical font-bold text-white uppercase tracking-wide">
+                            CÓDIGO DE ALIANZA
+                        </h2>
+                        <p class="text-xs text-slate-300 mt-2 px-2">
+                            ¿Qué día de cada mes se renueva nuestra alianza?
+                        </p>
+                    </div>
+
+                    <div class="space-y-2.5 mt-5">
+                        <div onclick="selectOption(2, '05', false)" id="m2-opt-0" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">05</span>
+                        </div>
+                        <div onclick="selectOption(2, '14', true)" id="m2-opt-1" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">14</span>
+                        </div>
+                        <div onclick="selectOption(2, '25', false)" id="m2-opt-2" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">25</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <div id="m2-status" class="hidden text-center py-2 px-3 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-tactical text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check text-tactical-green"></i>
+                        <span>CÓDIGO 14 VALIDADO - ALIANZA PERMANENTE</span>
+                    </div>
+
+                    <button type="button" id="m2-btn" onclick="confirmMission(2)" disabled class="w-full bg-tactical-border text-slate-500 font-tactical font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                        CONFIRMAR RESPUESTA
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: MISIÓN 3/3 -->
+            <div id="step-3" class="step-screen flex-1 flex flex-col justify-between hidden">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-tactical text-tactical-accent tracking-wider uppercase bg-yellow-500/10 px-2.5 py-1 rounded-md border border-yellow-500/20">
+                            MISIÓN 3 / 3
+                        </span>
+                        <div class="flex gap-1.5">
+                            <div class="w-2 h-2 rounded-full bg-tactical-green"></div>
+                            <div class="w-2 h-2 rounded-full bg-tactical-green"></div>
+                            <div class="w-2 h-2 rounded-full bg-tactical-accent animate-pulse"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-center my-3">
+                        <div class="w-12 h-12 bg-tactical-border/50 border border-slate-700 rounded-2xl flex items-center justify-center mx-auto mb-2 text-tactical-accent">
+                            <i class="fa-solid fa-users-gear text-xl"></i>
+                        </div>
+                        <h2 class="text-lg font-tactical font-bold text-white uppercase tracking-wide">
+                            COMPAÑERO DE ESCUADRÓN
+                        </h2>
+                        <p class="text-xs text-slate-300 mt-2 px-2">
+                            ¿Cuál es el nombre en clave del operador favorito de Miqui Bu?
+                        </p>
+                    </div>
+
+                    <div class="space-y-2.5 mt-5">
+                        <div onclick="selectOption(3, 'Capitán Parintio', false)" id="m3-opt-0" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Capitán Parintio</span>
+                        </div>
+                        <div onclick="selectOption(3, 'Fabri Bu', true)" id="m3-opt-1" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Fabri Bu</span>
+                        </div>
+                        <div onclick="selectOption(3, 'Ghost', false)" id="m3-opt-2" class="option-card border border-tactical-border bg-slate-900/60 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+                                <div class="radio-dot w-2 h-2 rounded-full bg-tactical-green opacity-0 transition-opacity"></div>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Ghost</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <div id="m3-status" class="hidden text-center py-2 px-3 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-tactical text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check text-tactical-green"></i>
+                        <span>OPERADOR FABRI BU LOCALIZADO</span>
+                    </div>
+
+                    <button type="button" id="m3-btn" onclick="confirmMission(3)" disabled class="w-full bg-tactical-border text-slate-500 font-tactical font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                        CONFIRMAR RESPUESTA
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 4: SEÑAL INTERCEPTADA (MINION) -->
+            <div id="step-4" class="step-screen flex-1 flex flex-col justify-between hidden">
+                <div>
+                    <div class="bg-amber-500/10 border border-amber-500/30 text-amber-400 px-3 py-1.5 rounded-lg text-xs font-tactical flex items-center justify-between mb-3">
+                        <span class="uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            SEÑAL INTERCEPTADA
+                        </span>
+                        <i class="fa-solid fa-lock text-amber-400/60 text-xs"></i>
+                    </div>
+
+                    <div class="bg-slate-900/80 border border-tactical-border rounded-2xl p-4 text-center my-2 relative overflow-hidden">
+                        <div class="inline-block bg-yellow-500/20 text-yellow-300 text-[11px] font-tactical px-3 py-1 rounded-full border border-yellow-500/30 mb-2">
+                            <i class="fa-solid fa-tower-broadcast mr-1"></i> TRANSMISIÓN INTERCEPTADA
+                        </div>
+                        
+                        <!-- Minion Vector Graphic -->
+                        <div class="w-28 h-28 mx-auto my-1 flex items-center justify-center">
+                            <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                                <rect x="25" y="20" width="50" height="65" rx="25" fill="#FACC15" />
+                                <path d="M25 60 C25 75 35 85 50 85 C65 85 75 75 75 60 L75 65 L25 65 Z" fill="#2563EB" />
+                                <rect x="35" y="55" width="30" height="20" fill="#2563EB" />
+                                <line x1="26" y1="52" x2="36" y2="60" stroke="#1D4ED8" stroke-width="4" />
+                                <line x1="74" y1="52" x2="64" y2="60" stroke="#1D4ED8" stroke-width="4" />
+                                <rect x="22" y="32" width="56" height="7" fill="#1E293B" rx="2" />
+                                <circle cx="50" cy="35.5" r="13" fill="#94A3B8" />
+                                <circle cx="50" cy="35.5" r="10" fill="#F8FAFC" />
+                                <circle cx="52" cy="35.5" r="4.5" fill="#78350F" />
+                                <circle cx="53" cy="34" r="1.5" fill="#FFFFFF" />
+                                <path d="M40 48 Q50 56 60 48" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" />
+                                <path d="M72 50 Q85 45 80 60 Q75 55 72 50" fill="#FFE066" stroke="#D97706" stroke-width="1.5" />
+                            </svg>
+                        </div>
+
+                        <h3 class="text-xl font-bold font-tactical text-yellow-400 tracking-wider">
+                            ¡BANANAAAA! 🍌
+                        </h3>
+                        <p class="text-xs text-slate-300 mt-1">
+                            Un agente amarillo ha bloqueado tu recompensa legendaria.
+                        </p>
+                    </div>
+
+                    <!-- Clue Box -->
+                    <div class="bg-amber-950/20 border border-amber-500/20 p-3 rounded-xl space-y-1 mb-3">
+                        <div class="text-[11px] font-tactical text-amber-400 flex items-center gap-1.5 uppercase">
+                            <i class="fa-solid fa-lightbulb"></i> PISTA SECRETA
+                        </div>
+                        <p class="text-xs text-slate-300 italic">
+                            Hay una palabra que Miqui Bu y Fabri Bu dicen entre risas... y que solo ellos entienden.
+                        </p>
+                    </div>
+
+                    <!-- Form Field -->
+                    <div class="space-y-1.5">
+                        <label class="text-[11px] font-tactical text-slate-400 uppercase tracking-wider block">
+                            CONTRASEÑA SECRETA
+                        </label>
+                        <input type="text" id="pass-input" placeholder="Ingresá la palabra secreta"
+                               class="w-full bg-slate-900 border border-tactical-border rounded-xl px-4 py-3 text-center text-slate-100 font-tactical uppercase tracking-widest focus:outline-none focus:border-tactical-accent">
+                        <p id="pass-error" class="text-[11px] text-red-400 text-center font-mono hidden">
+                            ❌ Contraseña incorrecta. Intenta otra vez.
+                        </p>
+                    </div>
+                </div>
+
+                <button type="button" onclick="checkPassword()" class="w-full bg-tactical-accent hover:bg-yellow-400 text-black font-tactical font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider mt-4">
+                    DESBLOQUEAR SUMINISTRO
+                </button>
+            </div>
+
+            <!-- STEP 5: REWARD SCREEN -->
+            <div id="step-5" class="step-screen flex-1 flex flex-col justify-between hidden">
+                <div class="text-center space-y-3">
+                    <div class="inline-flex items-center gap-1.5 bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 px-3 py-1 rounded-full text-xs font-tactical uppercase tracking-wider">
+                        <i class="fa-solid fa-trophy text-emerald-400"></i>
+                        VICTORIA • RECOMPENSA
+                    </div>
+
+                    <div class="pt-2">
+                        <div class="w-16 h-16 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl flex items-center justify-center mx-auto text-tactical-accent mb-2">
+                            <i class="fa-solid fa-trophy text-3xl"></i>
+                        </div>
+                        <span class="text-[11px] font-tactical text-slate-400 uppercase tracking-widest">
+                            MISIÓN COMPLETADA
+                        </span>
+                        <h2 class="text-2xl font-tactical font-bold text-white uppercase tracking-wide mt-0.5">
+                            ¡FELIZ CUMPLE, FABRI BU!
+                        </h2>
+                    </div>
+
+                    <!-- Reward Card -->
+                    <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/40 rounded-2xl p-4 shadow-xl space-y-2 pulse-card">
+                        <div class="text-[10px] font-tactical text-slate-400 uppercase tracking-widest">
+                            RECOMPENSA LEGENDARIA
+                        </div>
+                        <div class="text-3xl font-tactical font-extrabold text-tactical-green tracking-tight">
+                            $100.000 ARS
+                        </div>
+                        <div class="text-xs font-tactical text-slate-300 tracking-wider">
+                            CRÉDITO PARA TU NUEVO PROCESADOR
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-400 italic pt-1">
+                        Tu compañera de dúo dejó un último mensaje.
+                    </p>
+                </div>
+
+                <div class="space-y-2.5">
+                    <button type="button" onclick="openModal()" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-tactical font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-envelope text-yellow-400"></i>
+                        ABRIR MENSAJE DE MIQUI BU
+                    </button>
+
+                    <div class="bg-slate-900/60 border border-tactical-border py-2 px-3 rounded-xl flex items-center justify-center gap-2 text-[11px] text-slate-300 font-tactical">
+                        <i class="fa-solid fa-key text-yellow-400"></i>
+                        <span id="verified-code-tag">PAPO • CÓDIGO VERIFICADO</span>
+                    </div>
+
+                    <button type="button" onclick="restartGame()" class="w-full bg-tactical-accent hover:bg-yellow-400 text-black font-tactical font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        VOLVER A JUGAR
+                    </button>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- FOOTER BAR -->
+        <footer class="bg-[#0d1217] border-t border-tactical-border px-4 py-2.5 text-center">
+            <p class="text-[10px] font-tactical text-slate-500 tracking-widest uppercase">
+                OPERATION PARINTIO • EDICIÓN CUMPLEAÑOS
+            </p>
+        </footer>
+    </div>
+
+    <!-- MODAL FOR FINAL MESSAGE -->
+    <div id="message-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-tactical-card border border-tactical-border rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl">
+            <div class="w-14 h-14 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
+                <i class="fa-solid fa-heart text-2xl text-amber-400"></i>
+            </div>
+            <h3 class="font-tactical text-lg font-bold text-white mb-2 uppercase tracking-wide">MENSAJE ESPECIAL DE MIQUI BU</h3>
+            <p class="text-slate-200 text-sm leading-relaxed mb-6 font-sans">
+                "Feliz cumpleaños amor! Espero que de esta manera tengas una ayuda para tu nuevo procesador, te lo re mereces. Gracias por ser el mejor compañero!Te amo❤️🎮"
+            </p>
+            <button type="button" onclick="closeModal()" class="w-full bg-tactical-accent hover:bg-yellow-400 text-black font-bold py-3 rounded-xl font-tactical tracking-wider text-sm transition">
+                CERRAR MENSAJE
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        let currentStep = 0;
+        let selectedAnswers = { 1: null, 2: null, 3: null };
+
+        function goToStep(step) {
+            currentStep = step;
+            
+            const screens = document.querySelectorAll('.step-screen');
+            screens.forEach(s => s.classList.add('hidden'));
+
+            const target = document.getElementById('step-' + step);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            const lockIcon = document.getElementById('lock-icon');
+            if (step === 5) {
+                lockIcon.className = "fa-solid fa-lock-open text-tactical-green text-xs";
+            } else {
+                lockIcon.className = "fa-solid fa-lock text-slate-500 text-xs";
+            }
+        }
+
+        function selectOption(missionNum, text, isCorrect) {
+            selectedAnswers[missionNum] = { text, isCorrect };
+
+            for (let i = 0; i < 3; i++) {
+                const opt = document.getElementById(`m${missionNum}-opt-${i}`);
+                if (opt) opt.classList.remove('selected');
+            }
+
+            const targetOpt = event.currentTarget;
+            if (targetOpt) {
+                targetOpt.classList.add('selected');
+            }
+
+            const btn = document.getElementById(`m${missionNum}-btn`);
+            if (btn) {
+                btn.disabled = false;
+                btn.className = "w-full bg-tactical-accent hover:bg-yellow-400 text-black font-tactical font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider cursor-pointer";
+            }
+        }
+
+        function confirmMission(missionNum) {
+            const answer = selectedAnswers[missionNum];
+            if (!answer) return;
+
+            const btn = document.getElementById(`m${missionNum}-btn`);
+
+            if (answer.isCorrect) {
+                const statusBox = document.getElementById(`m${missionNum}-status`);
+                if (statusBox) statusBox.classList.remove('hidden');
+
+                if (missionNum === 3) {
+                    btn.textContent = "RECLAMAR SUMINISTRO";
+                    btn.onclick = function() { goToStep(4); };
+                } else {
+                    btn.textContent = "SIGUIENTE MISIÓN";
+                    btn.onclick = function() { goToStep(missionNum + 1); };
+                }
+            } else {
+                alert("Respuesta incorrecta. Intentá con otra opción.");
+            }
+        }
+
+        function checkPassword() {
+            const input = document.getElementById('pass-input');
+            const errorMsg = document.getElementById('pass-error');
+            
+            if (!input) return;
+            const value = input.value.trim().toUpperCase();
+
+            // Accepts PAPO or PAPOI
+            if (value === "PAPO" || value === "PAPOI") {
+                if (errorMsg) errorMsg.classList.add('hidden');
+                const codeTag = document.getElementById('verified-code-tag');
+                if (codeTag) codeTag.textContent = value + " • CÓDIGO VERIFICADO";
+                goToStep(5);
+            } else {
+                if (errorMsg) errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function openModal() {
+            document.getElementById('message-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('message-modal').classList.add('hidden');
+        }
+
+        function restartGame() {
+            selectedAnswers = { 1: null, 2: null, 3: null };
+            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('[id$="-status"]').forEach(s => s.classList.add('hidden'));
+            
+            for(let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`m${i}-btn`);
+                if (btn) {
+                    btn.disabled = true;
+                    btn.textContent = "CONFIRMAR RESPUESTA";
+                    btn.className = "w-full bg-tactical-border text-slate-500 font-tactical font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider";
+                    btn.onclick = (function(num){ return function(){ confirmMission(num); }; })(i);
+                }
+            }
+
+            const passInput = document.getElementById('pass-input');
+            if (passInput) passInput.value = '';
+            
+            goToStep(0);
+        }
+    </script>
+</body>
+</html>
